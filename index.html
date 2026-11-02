@@ -1,17 +1,78 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Мой первый AI-проект</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мой первый чат-бот</title>
+  <style>
+    body {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 16px;
+      font-family: Arial, sans-serif;
+    }
+
+    #chat {
+      min-height: 180px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    #message {
+      width: 75%;
+      padding: 10px;
+    }
+
+    button {
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <h1>Привет! 👋</h1>
-    <h2>Это мой первый проект на GitHub</h2>
+  <h1>Мой первый помощник 👋</h1>
+  <p>Это бесплатная демонстрация с заранее заданными ответами.</p>
 
-    <p>Я учусь создавать приложения
-    с помощью искусственного интеллекта.</p>
+  <div id="chat">Бот: Привет! Напиши «привет» или спроси, что я умею.</div>
 
-    <button>Нажми на меня</button>
+  <form id="chat-form">
+    <input id="message" type="text" placeholder="Напиши сообщение..." required>
+    <button type="submit">Отправить</button>
+  </form>
+
+  <script>
+    const chat = document.getElementById("chat");
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("message");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const question = input.value.trim();
+      const lowerQuestion = question.toLowerCase();
+
+      let answer = "Я пока умею отвечать только на простые вопросы. Попробуй написать «привет».";
+
+      if (lowerQuestion.includes("привет")) {
+        answer = "Привет! Рад знакомству 😊";
+      } else if (lowerQuestion.includes("умеешь") || lowerQuestion.includes("помощь")) {
+        answer = "Я могу поздороваться и рассказать, что это демонстрационный бот.";
+      } else if (lowerQuestion.includes("проект")) {
+        answer = "Этот проект помогает учиться создавать сайты на GitHub.";
+      }
+
+      const userLine = document.createElement("p");
+      userLine.textContent = "Ты: " + question;
+
+      const botLine = document.createElement("p");
+      botLine.textContent = "Бот: " + answer;
+
+      chat.append(userLine, botLine);
+      input.value = "";
+      input.focus();
+    });
+  </script>
 </body>
 </html>
